@@ -6,7 +6,7 @@ function saldo(ingresos,gastos){
 }
 
 
-for(let i=1; i<11; i++){
+for(let i=1; i<5; i++){
     alert("Describa el ingreso N° " + i)
     let conceptoIngreso = prompt("Concepto del ingreso. Si desea salir sin colocar más nada, escriba: ESC ");
     conceptoIngreso = conceptoIngreso.toUpperCase();
@@ -24,12 +24,12 @@ for(let i=1; i<11; i++){
             }
         }
     }
-    else{
+    else {
         break;
     }
 }
 
-for(let i=1; i<11; i++){
+for(let i=1; i<5; i++){
     alert("Describa el gasto N° " + i)
     let conceptoGasto = prompt (" Si desea salir sin colocar mas conceptos, escriba: ESC ");
     conceptoGasto = conceptoGasto.toUpperCase();
@@ -47,12 +47,49 @@ for(let i=1; i<11; i++){
             }
         }
     }
-    else{
+    else {
         break;
     }
 }
 
+
+// OBJETOS CREADOS - PARA FUTUROS USUARIOS DE LA PLATAFORMA
+
+class NuevoUsuario {
+    constructor (nombre, email, edad ,password) {
+        this.nombre = nombre;
+        this.email = email;
+        this.edad = edad;
+        this.password = password;
+    }
+        esMayor () {
+            if (this.edad >= 18) {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+
+const usuario1 = new NuevoUsuario ('Mateo', 'mateo@gmail.com', 25, 'mateo1234')
+const usuario2 = new NuevoUsuario ('Hernan', 'hernan@gmail.com', 31, 'hernan5678' )
+const usuario3 = new NuevoUsuario ('Julia', 'julia@gmail.com', 14 , 'Julia34521' )
+
+console.log(usuario1,usuario2, usuario3)
+console.log("El usuario " + usuario1.nombre + " es mayor? " + usuario1.esMayor())
+console.log("El usuario " + usuario2.nombre + " es mayor? " + usuario2.esMayor())
+console.log("El usuario " + usuario3.nombre + " es mayor? " + usuario3.esMayor())
+
+
+// ALERT QUE MUESTRA LA FUNCION CREADA (SALDO)
+
 alert(
     "El total de tus ingresos es de: $ " + ingresoAcumulado +"\n"+
-    "Los gastos de este mes, suman: $ " +acumuladorGastos +"\n"+
-    "Tu saldo disponible, es de: $ " + saldo(ingresoAcumulado,acumuladorGastos));
+    "Los gastos de este mes, suman: $ " + acumuladorGastos +"\n"+
+    "Tu saldo disponible, es de: $ " + saldo( ingresoAcumulado,acumuladorGastos));
+
+
+// ALERT PARA VER LOS OBJETOS EN LA CONSOLA
+    
+alert(
+    "Puede ver los objetos usuarios creados en la consola!");
