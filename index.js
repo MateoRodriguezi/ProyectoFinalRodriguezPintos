@@ -2,6 +2,7 @@ let ingresoAcumulado = 0;
 let acumuladorGastos = 0;
 let detalleIngreso = [];
 let detalleGasto = [];
+let usuarios = [];
 
 function saldo(ingresos,gastos){
     return ingresos - gastos;
@@ -79,8 +80,11 @@ class NuevoUsuario {
     }
 
 const user1 = new NuevoUsuario ('Mateo', 'mateo@gmail.com', 25, 'mateo1234')
+usuarios.push(user1)
 const user2 = new NuevoUsuario ('Hernan', 'hernan@gmail.com', 31, 'hernan5678' )
+usuarios.push(user2)
 const user3 = new NuevoUsuario ('Julia', 'julia@gmail.com', 14 , 'Julia34521' )
+usuarios.push(user3)
 
 console.log(user1,user2, user3)
 console.log("El usuario " + user1.nombre + " es mayor? " + user1.esMayor())
@@ -119,3 +123,12 @@ if (index !== -1) {
 } else {
     alert ('Aun no has cobrado tu sueldo!')
 }
+
+// CONSOLE LOG DEL ARRAY DE USUARIOS Y METODOS AVANZADOS DE ARRAY
+
+console.log(usuarios)
+
+// FILTRA A LOS USUARIOS MAYORES DE EDAD
+
+const filtrado = usuarios.filter(e => e.edad > 18)
+console.log (filtrado)
