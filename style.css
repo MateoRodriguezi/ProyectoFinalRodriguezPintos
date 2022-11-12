@@ -5,12 +5,11 @@
 }
 
 body {
-    background-color: white;
+    background-color: rgb(218, 221, 223);
     height: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 h1{

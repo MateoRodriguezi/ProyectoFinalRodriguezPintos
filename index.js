@@ -1,5 +1,7 @@
 let ingresoAcumulado = 0;
 let acumuladorGastos = 0;
+let detalleIngreso = [];
+let detalleGasto = [];
 
 function saldo(ingresos,gastos){
     return ingresos - gastos;
@@ -12,6 +14,7 @@ for(let i=1; i<5; i++){
     conceptoIngreso = conceptoIngreso.toUpperCase();
 
     if (conceptoIngreso != "ESC"){
+        detalleIngreso.push(conceptoIngreso)
         let montoIngreso = prompt("Monto del ingreso:");
         ingresoAcumulado = ingresoAcumulado + parseInt(montoIngreso);
 
@@ -35,6 +38,7 @@ for(let i=1; i<5; i++){
     conceptoGasto = conceptoGasto.toUpperCase();
 
     if (conceptoGasto != "ESC"){
+        detalleGasto.push(conceptoGasto)
         let montoGasto = prompt("Monto del gasto:");
         acumuladorGastos = acumuladorGastos + parseInt(montoGasto);
 
@@ -51,6 +55,10 @@ for(let i=1; i<5; i++){
         break;
     }
 }
+
+// CONSOLE.LOG PARA VER LOS ARRAY EN LA CONSOLA
+console.log(detalleIngreso)
+console.log(detalleGasto)
 
 
 // OBJETOS CREADOS - PARA FUTUROS USUARIOS DE LA PLATAFORMA
@@ -71,14 +79,14 @@ class NuevoUsuario {
         }
     }
 
-const usuario1 = new NuevoUsuario ('Mateo', 'mateo@gmail.com', 25, 'mateo1234')
-const usuario2 = new NuevoUsuario ('Hernan', 'hernan@gmail.com', 31, 'hernan5678' )
-const usuario3 = new NuevoUsuario ('Julia', 'julia@gmail.com', 14 , 'Julia34521' )
+const user1 = new NuevoUsuario ('Mateo', 'mateo@gmail.com', 25, 'mateo1234')
+const user2 = new NuevoUsuario ('Hernan', 'hernan@gmail.com', 31, 'hernan5678' )
+const user3 = new NuevoUsuario ('Julia', 'julia@gmail.com', 14 , 'Julia34521' )
 
-console.log(usuario1,usuario2, usuario3)
-console.log("El usuario " + usuario1.nombre + " es mayor? " + usuario1.esMayor())
-console.log("El usuario " + usuario2.nombre + " es mayor? " + usuario2.esMayor())
-console.log("El usuario " + usuario3.nombre + " es mayor? " + usuario3.esMayor())
+console.log(user1,user2, user3)
+console.log("El usuario " + user1.nombre + " es mayor? " + user1.esMayor())
+console.log("El usuario " + user2.nombre + " es mayor? " + user2.esMayor())
+console.log("El usuario " + user3.nombre + " es mayor? " + user3.esMayor())
 
 
 // ALERT QUE MUESTRA LA FUNCION CREADA (SALDO)
@@ -86,10 +94,10 @@ console.log("El usuario " + usuario3.nombre + " es mayor? " + usuario3.esMayor()
 alert(
     "El total de tus ingresos es de: $ " + ingresoAcumulado +"\n"+
     "Los gastos de este mes, suman: $ " + acumuladorGastos +"\n"+
-    "Tu saldo disponible, es de: $ " + saldo( ingresoAcumulado,acumuladorGastos));
+    "Tu saldo disponible es de: $ " + saldo( ingresoAcumulado,acumuladorGastos));
 
 
-// ALERT PARA VER LOS OBJETOS EN LA CONSOLA
+// ALERT PARA VER LOS OBJETOS Y ARRAYS EN LA CONSOLA
     
 alert(
     "Puede ver los objetos usuarios creados en la consola!");
