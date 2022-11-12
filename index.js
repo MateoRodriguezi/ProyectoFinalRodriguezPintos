@@ -114,9 +114,8 @@ alert("Los gastos fueron: " + gastosJoin)
 
 let index = detalleIngreso.indexOf('SUELDO')
 console.log(index)
-if (index === 0) {
-    alert ('Ya has cobrado tu sueldo! :) ')
+if (index !== -1) {
+    alert ('Ya has cobrado tu sueldo!')
 } else {
-    alert ('Aun no has cobrado tu sueldo! :( ')
+    alert ('Aun no has cobrado tu sueldo!')
 }
-
