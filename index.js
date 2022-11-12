@@ -60,7 +60,6 @@ for(let i=1; i<5; i++){
 console.log(detalleIngreso)
 console.log(detalleGasto)
 
-
 // OBJETOS CREADOS - PARA FUTUROS USUARIOS DE LA PLATAFORMA
 
 class NuevoUsuario {
@@ -101,3 +100,23 @@ alert(
     
 alert(
     "Puede ver los objetos usuarios creados en la consola!");
+
+
+// ALERT PARA VER LOS DETALLES DE INGRESOS Y GASTOS
+
+let ingresosJoin = detalleIngreso.join(' , ')
+alert("Los ingresos fueron: " + ingresosJoin)
+
+let gastosJoin = detalleGasto.join(' , ')
+alert("Los gastos fueron: " + gastosJoin)
+
+// ALERT PARA VER SI EL USUARIO COBRO EL SUELDO
+
+let index = detalleIngreso.indexOf('SUELDO')
+console.log(index)
+if (index === 0) {
+    alert ('Ya has cobrado tu sueldo! :) ')
+} else {
+    alert ('Aun no has cobrado tu sueldo! :( ')
+}
+
