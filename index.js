@@ -1,4 +1,15 @@
+let detalleIngreso = [];
+let detalleGasto = [];
 let usuarios = [];
+let ingresoAcumulado = 0;
+let acumuladorGastos = 0;
+let nombre = prompt(" Cual es tu nombre? ")
+
+const saludaruUsuario = (nombre) => {
+    return `Hola, ${nombre}`
+}
+
+alert (saludaruUsuario (nombre))
 
 function saldo(ingresos,gastos){
     return ingresos - gastos;
@@ -28,11 +39,6 @@ const user3 = new NuevoUsuario ('Julia', 'julia@gmail.com', 14 , 'Julia34521' )
 usuarios.push(user3)
 
 const filtrado = usuarios.filter(e => e.edad > 18)
-
-let detalleIngreso = [];
-let detalleGasto = [];
-let ingresoAcumulado = 0;
-let acumuladorGastos = 0;
 
 for(let i=1; i<5; i++){
     alert("Describa el ingreso N° " + i)
@@ -102,9 +108,9 @@ if (index !== -1) {
 
 console.log(detalleIngreso)
 console.log(detalleGasto)
+console.log(usuarios)
 console.log(user1,user2, user3)
 console.log("El usuario " + user1.nombre + " es mayor? " + user1.esMayor())
 console.log("El usuario " + user2.nombre + " es mayor? " + user2.esMayor())
 console.log("El usuario " + user3.nombre + " es mayor? " + user3.esMayor())
-console.log(usuarios)
 console.log (filtrado)
