@@ -39,6 +39,7 @@ const user3 = new NuevoUsuario ('Julia', 'julia@gmail.com', 14 , 'Julia34521' )
 usuarios.push(user3)
 
 const filtrado = usuarios.filter(e => e.edad > 18)
+const nombreDeseado = usuarios.find( e => e.nombre === 'Mateo' )
 
 for(let i=1; i<5; i++){
     alert("Describa el ingreso N° " + i)
@@ -113,4 +114,6 @@ console.log(user1,user2, user3)
 console.log("El usuario " + user1.nombre + " es mayor? " + user1.esMayor())
 console.log("El usuario " + user2.nombre + " es mayor? " + user2.esMayor())
 console.log("El usuario " + user3.nombre + " es mayor? " + user3.esMayor())
+// Se muestra por consola los resultados del .filter y .find
 console.log (filtrado)
+console.log (nombreDeseado)
