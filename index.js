@@ -3,15 +3,15 @@ let detalleGasto = [];
 let usuarios = [];
 let ingresoAcumulado = 0;
 let acumuladorGastos = 0;
-let nombre = prompt(" Cual es tu nombre? ")
+let nombre = prompt("Cual es tu nombre? ")
 
-const saludaruUsuario = (nombre) => {
+saludaruUsuario = (nombre) => {
     return `Hola, ${nombre}`
 }
 
 alert (saludaruUsuario (nombre))
 
-function saldo(ingresos,gastos){
+saldo = (ingresos,gastos) => {
     return ingresos - gastos;
 }
 
@@ -22,7 +22,7 @@ class NuevoUsuario {
         this.edad = edad;
         this.password = password;
     }
-        esMayor = () => {
+        esMayor = () => { 
             if (this.edad >= 18) {
                 return true
             } else {
@@ -41,53 +41,59 @@ usuarios.push(user3)
 const filtrado = usuarios.filter(e => e.edad > 18)
 const nombreDeseado = usuarios.find( e => e.nombre === 'Mateo' )
 
-for(let i=1; i<5; i++){
-    alert("Describa el ingreso N° " + i)
-    let conceptoIngreso = prompt("Concepto del ingreso. Si desea salir sin colocar más nada, escriba: ESC ");
-    conceptoIngreso = conceptoIngreso.toUpperCase();
 
-    if (conceptoIngreso != "ESC"){
-        detalleIngreso.push(conceptoIngreso)
-        let montoIngreso = prompt("Monto del ingreso:");
-        ingresoAcumulado = ingresoAcumulado + parseInt(montoIngreso);
+calcular = () => {
 
-        while (isNaN(montoIngreso) == true || parseInt(montoIngreso) < 0){
-            alert("ERROR. Sólo son validos carácteres numéricos mayores o iguales a 0.");
-            montoIngreso = prompt("Coloque nuevamente el monto del ingreso: ");
-            if (isNaN(montoIngreso) == false && (parseInt(montoIngreso) > 0)){
-                ingresoAcumulado = ingresoAcumulado + parseInt(montoIngreso);
-                break;
+    for(let i=1; i<5; i++){
+        alert("Describa el ingreso N° " + i)
+        let conceptoIngreso = prompt("Concepto del ingreso. Si desea salir sin colocar más nada, escriba: ESC ");
+        conceptoIngreso = conceptoIngreso.toUpperCase();
+
+        if (conceptoIngreso != "ESC"){
+            detalleIngreso.push(conceptoIngreso)
+            let montoIngreso = prompt("Monto del ingreso:");
+            ingresoAcumulado = ingresoAcumulado + parseInt(montoIngreso);
+
+            while (isNaN(montoIngreso) == true || parseInt(montoIngreso) < 0){
+                alert("ERROR. Sólo son validos carácteres numéricos mayores o iguales a 0.");
+                montoIngreso = prompt("Coloque nuevamente el monto del ingreso: ");
+                if (isNaN(montoIngreso) == false && (parseInt(montoIngreso) > 0)){
+                    ingresoAcumulado = ingresoAcumulado + parseInt(montoIngreso);
+                    break;
+                }
             }
         }
+        else {
+            break;
+        }
     }
-    else {
-        break;
+
+    for(let i=1; i<5; i++){
+        alert("Describa el gasto N° " + i)
+        let conceptoGasto = prompt (" Si desea salir sin colocar mas conceptos, escriba: ESC ");
+        conceptoGasto = conceptoGasto.toUpperCase();
+
+        if (conceptoGasto != "ESC"){
+            detalleGasto.push(conceptoGasto)
+            let montoGasto = prompt("Monto del gasto:");
+            acumuladorGastos = acumuladorGastos + parseInt(montoGasto);
+
+            while (isNaN(montoGasto) == true || parseInt(montoGasto) < 0){
+                alert("ERROR. Sólo son validos carácteres numéricos mayores o iguales a 0.");
+                montoGasto = prompt("Coloque nuevamente el monto del gasto: ");
+                if (isNaN(montoGasto) == false && (parseInt(montoGasto) > 0)){
+                    acumuladorGastos = acumuladorGastos + parseInt(montoGasto);
+                    break;
+                }
+            }
+        }
+        else {
+            break;
+        }
     }
 }
 
-for(let i=1; i<5; i++){
-    alert("Describa el gasto N° " + i)
-    let conceptoGasto = prompt (" Si desea salir sin colocar mas conceptos, escriba: ESC ");
-    conceptoGasto = conceptoGasto.toUpperCase();
-
-    if (conceptoGasto != "ESC"){
-        detalleGasto.push(conceptoGasto)
-        let montoGasto = prompt("Monto del gasto:");
-        acumuladorGastos = acumuladorGastos + parseInt(montoGasto);
-
-        while (isNaN(montoGasto) == true || parseInt(montoGasto) < 0){
-            alert("ERROR. Sólo son validos carácteres numéricos mayores o iguales a 0.");
-            montoGasto = prompt("Coloque nuevamente el monto del gasto: ");
-            if (isNaN(montoGasto) == false && (parseInt(montoGasto) > 0)){
-                acumuladorGastos = acumuladorGastos + parseInt(montoGasto);
-                break;
-            }
-        }
-    }
-    else {
-        break;
-    }
-}
+calcular()
 
 alert(
     "El total de tus ingresos es de: $ " + ingresoAcumulado +"\n"+
