@@ -3,7 +3,7 @@ let detalleGasto = [];
 let usuarios = [];
 let ingresoAcumulado = 0;
 let acumuladorGastos = 0;
-let nombre = prompt("Cual es tu nombre? ")
+let nombre = prompt(" Cual es tu nombre? ")
 
 saludaruUsuario = (nombre) => {
     return `Hola, ${nombre}`
@@ -16,11 +16,9 @@ saldo = (ingresos,gastos) => {
 }
 
 class NuevoUsuario {
-    constructor (nombre, email, edad ,password) {
+    constructor (nombre, edad) {
         this.nombre = nombre;
-        this.email = email;
         this.edad = edad;
-        this.password = password;
     }
         esMayor = () => { 
             if (this.edad >= 18) {
@@ -31,15 +29,38 @@ class NuevoUsuario {
         }
     }
 
-const user1 = new NuevoUsuario ('Mateo', 'mateo@gmail.com', 25, 'mateo1234')
+creadorUsuario = () => {
+
+let user1 = new NuevoUsuario ('', 25)
+user1.nombre = prompt("Ingrese el nombre del usuario 1")
+user1.nombre = user1.nombre.toUpperCase()
 usuarios.push(user1)
-const user2 = new NuevoUsuario ('Hernan', 'hernan@gmail.com', 31, 'hernan5678' )
+
+let user2 = new NuevoUsuario ('', 31)
+user2.nombre = prompt("Ingrese el nombre del usuario 2")
+user2.nombre = user2.nombre.toUpperCase()
 usuarios.push(user2)
-const user3 = new NuevoUsuario ('Julia', 'julia@gmail.com', 14 , 'Julia34521' )
+
+let user3 = new NuevoUsuario ('', 14 )
+user3.nombre = prompt("Ingrese el nombre del usuario 3")
+user3.nombre = user3.nombre.toUpperCase()
 usuarios.push(user3)
 
+console.log(usuarios)
+console.log("El usuario " + user1.nombre + " es mayor? " + user1.esMayor())
+console.log("El usuario " + user2.nombre + " es mayor? " + user2.esMayor())
+console.log("El usuario " + user3.nombre + " es mayor? " + user3.esMayor())
+
+}
+
+creadorUsuario()
+
 const filtrado = usuarios.filter(e => e.edad > 18)
-const nombreDeseado = usuarios.find( e => e.nombre === 'Mateo' )
+const nombreDeseado = usuarios.find( e => e.nombre === 'MATEO' )
+
+// Se muestra por consola los resultados del .filter y .find
+console.log (filtrado)
+console.log (nombreDeseado)
 
 
 calcular = () => {
@@ -91,6 +112,8 @@ calcular = () => {
             break;
         }
     }
+    console.log(detalleIngreso)
+    console.log(detalleGasto)
 }
 
 calcular()
@@ -113,13 +136,3 @@ if (index !== -1) {
     alert ('Aun no has cobrado tu sueldo!')
 }
 
-console.log(detalleIngreso)
-console.log(detalleGasto)
-console.log(usuarios)
-console.log(user1,user2, user3)
-console.log("El usuario " + user1.nombre + " es mayor? " + user1.esMayor())
-console.log("El usuario " + user2.nombre + " es mayor? " + user2.esMayor())
-console.log("El usuario " + user3.nombre + " es mayor? " + user3.esMayor())
-// Se muestra por consola los resultados del .filter y .find
-console.log (filtrado)
-console.log (nombreDeseado)
