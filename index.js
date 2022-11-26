@@ -1,138 +1,129 @@
-let detalleIngreso = [];
-let detalleGasto = [];
-let usuarios = [];
-let ingresoAcumulado = 0;
-let acumuladorGastos = 0;
-let nombre = prompt(" Cual es tu nombre? ")
+const nombreUsuario = document.getElementById('nombre')
+const apellidoUsuario = document.getElementById('apellido')
+const botonIngresar = document.getElementById('ingresar')
+const divTitulo = document.getElementById('divTitulo')
+const divSaludo = document.getElementById('divSaludo')
+const divPrestamo = document.getElementById('divPrestamo')
+const divResultado = document.getElementById('divResultado')
+const divBancos = document.getElementById('bancos')
 
-saludaruUsuario = (nombre) => {
-    return `Hola, ${nombre}`
-}
+// arreglo de cuotas
+const cuotas = [
+    {
+        plazo:'corto plazo',
+    },
+    {
+        plazo:'mediano plazo',
+    },
+    {
+        plazo:'largo plazo',
+    },
+]
 
-alert (saludaruUsuario (nombre))
-
-saldo = (ingresos,gastos) => {
-    return ingresos - gastos;
-}
-
-class NuevoUsuario {
-    constructor (nombre, edad) {
-        this.nombre = nombre;
-        this.edad = edad;
+//se crea clase Banco
+class Banco {
+    constructor(nombre){
+        this.nombre = nombre
+        this.interes = Math.ceil(Math.random() * 10)
     }
-        esMayor = () => { 
-            if (this.edad >= 18) {
-                return true
-            } else {
-                return false
-            }
-        }
-    }
-
-creadorUsuario = () => {
-
-let user1 = new NuevoUsuario ('', 25)
-user1.nombre = prompt("Ingrese el nombre del usuario 1")
-user1.nombre = user1.nombre.toUpperCase()
-usuarios.push(user1)
-
-let user2 = new NuevoUsuario ('', 31)
-user2.nombre = prompt("Ingrese el nombre del usuario 2")
-user2.nombre = user2.nombre.toUpperCase()
-usuarios.push(user2)
-
-let user3 = new NuevoUsuario ('', 14 )
-user3.nombre = prompt("Ingrese el nombre del usuario 3")
-user3.nombre = user3.nombre.toUpperCase()
-usuarios.push(user3)
-
-console.log(usuarios)
-console.log("El usuario " + user1.nombre + " es mayor? " + user1.esMayor())
-console.log("El usuario " + user2.nombre + " es mayor? " + user2.esMayor())
-console.log("El usuario " + user3.nombre + " es mayor? " + user3.esMayor())
-
 }
 
-creadorUsuario()
+const bancos = []
 
-const filtrado = usuarios.filter(e => e.edad > 18)
-const nombreDeseado = usuarios.find( e => e.nombre === 'MATEO' )
+bancos.push(new Banco ('Itau'))
+bancos.push(new Banco ('BBVA'))
+bancos.push(new Banco ('Santander'))
+bancos.push(new Banco ('Scotiabank'))
+bancos.push(new Banco ('Banco Republica'))
 
-// Se muestra por consola los resultados del .filter y .find
-console.log (filtrado)
-console.log (nombreDeseado)
 
+// // verificar si hay un usuario en el storage
+const usuario = JSON.parse(localStorage.getItem('usuario'))
+if (usuario) {
+    crearDivPrestamos(usuario)
+    crearButtonSelectCalcular()
+}
 
-calcular = () => {
-
-    for(let i=1; i<5; i++){
-        alert("Describa el ingreso N° " + i)
-        let conceptoIngreso = prompt("Concepto del ingreso. Si desea salir sin colocar más nada, escriba: ESC ");
-        conceptoIngreso = conceptoIngreso.toUpperCase();
-
-        if (conceptoIngreso != "ESC"){
-            detalleIngreso.push(conceptoIngreso)
-            let montoIngreso = prompt("Monto del ingreso:");
-            ingresoAcumulado = ingresoAcumulado + parseInt(montoIngreso);
-
-            while (isNaN(montoIngreso) == true || parseInt(montoIngreso) < 0){
-                alert("ERROR. Sólo son validos carácteres numéricos mayores o iguales a 0.");
-                montoIngreso = prompt("Coloque nuevamente el monto del ingreso: ");
-                if (isNaN(montoIngreso) == false && (parseInt(montoIngreso) > 0)){
-                    ingresoAcumulado = ingresoAcumulado + parseInt(montoIngreso);
-                    break;
-                }
-            }
+//Evento click del boton ingresar en la pagina principal
+botonIngresar.onclick = () => {
+    if(nombreUsuario.value || apellidoUsuario.value) {
+        const usuario = {
+            nombre: nombreUsuario.value,
+            apellido: apellidoUsuario.value
         }
-        else {
-            break;
+        localStorage.setItem('usuario', JSON.stringify(usuario))
+
+        crearDivPrestamos(usuario)
+        crearButtonSelectCalcular()
+        const botonCalcular = document.getElementById('calcular')
+        botonCalcular.onclick = () => {
+            //tomando informacion de monto y cantidad de cuotas
+            const montoPrestamo = document.getElementById('inputMonto').value
+            const cantCuotas = document.getElementById('cuotas').value
+            console.log(montoPrestamo,cantCuotas)
+            cuotas.interes = parseInt(cuotas.interes)
+
+            bancos.forEach(banco => {
+                const cuotaInt = parseInt(montoPrestamo)
+                const cuotaConInteres = cuotaInt/100 * banco.interes
+                const precioFinal =  cuotaConInteres + cuotaInt
+                const parrafo = document.createElement('p')
+                parrafo.innerText = `El banco ${banco.nombre} te ofrece un prestamo con intereses de ${banco.interes}% por lo que deberias abonar ${precioFinal}`
+                divResultado.append(parrafo)
+            })
+
+            //Filtro los bancos con intereses mayores a 7%
+
+            const interesAlto = bancos.filter(banco => banco.interes >= 7)
+            console.log(JSON.stringify(interesAlto))
+            const bancosInteresAlto = document.createElement('p')
+            bancosInteresAlto.innerText = `Los bancos con intereses mayores a un 7% son:
+            ${JSON.stringify(interesAlto)}`
+            divBancos.append(bancosInteresAlto)
         }
     }
-
-    for(let i=1; i<5; i++){
-        alert("Describa el gasto N° " + i)
-        let conceptoGasto = prompt (" Si desea salir sin colocar mas conceptos, escriba: ESC ");
-        conceptoGasto = conceptoGasto.toUpperCase();
-
-        if (conceptoGasto != "ESC"){
-            detalleGasto.push(conceptoGasto)
-            let montoGasto = prompt("Monto del gasto:");
-            acumuladorGastos = acumuladorGastos + parseInt(montoGasto);
-
-            while (isNaN(montoGasto) == true || parseInt(montoGasto) < 0){
-                alert("ERROR. Sólo son validos carácteres numéricos mayores o iguales a 0.");
-                montoGasto = prompt("Coloque nuevamente el monto del gasto: ");
-                if (isNaN(montoGasto) == false && (parseInt(montoGasto) > 0)){
-                    acumuladorGastos = acumuladorGastos + parseInt(montoGasto);
-                    break;
-                }
-            }
-        }
-        else {
-            break;
-        }
-    }
-    console.log(detalleIngreso)
-    console.log(detalleGasto)
 }
 
-calcular()
+function crearDivPrestamos(user){
 
-alert(
-    "El total de tus ingresos es de: $ " + ingresoAcumulado +"\n"+
-    "Los gastos de este mes, suman: $ " + acumuladorGastos +"\n"+
-    "Tu saldo disponible es de: $ " + saldo( ingresoAcumulado,acumuladorGastos));
+    //eliminar divTitulo
+    divTitulo.remove()
 
-let ingresosJoin = detalleIngreso.join(' , ')
-alert("Los ingresos fueron: " + ingresosJoin)
+    //agregar elemento al DOM
+    const tituloSaludo = document.createElement('h2')
+    tituloSaludo.innerText = `Hola! Bienvenido ${user.nombre} ${user.apellido}, solicita el prestamo que mas te convenga:`
+    divSaludo.append(tituloSaludo)
 
-let gastosJoin = detalleGasto.join(' , ')
-alert("Los gastos fueron: " + gastosJoin)
-
-let index = detalleIngreso.indexOf('SUELDO')
-if (index !== -1) {
-    alert ('Ya has cobrado tu sueldo!')
-} else {
-    alert ('Aun no has cobrado tu sueldo!')
+    // crear input monto de prestamo solicitado
+    const parrafoPrestamo = document.createElement('p')
+    parrafoPrestamo.innerText = "Escriba el monto que desea solicitar como prestamo:"
+    const inputMonto = document.createElement('input')
+    inputMonto.setAttribute('type', 'number')
+    inputMonto.setAttribute('id', 'inputMonto')
+    divPrestamo.append(parrafoPrestamo)
+    divPrestamo.append(inputMonto)
 }
 
+function crearButtonSelectCalcular(){
+    //crear boton calcular
+    const botonCalcular = document.createElement('button')
+    botonCalcular.setAttribute('id', 'calcular')
+    botonCalcular.innerText = 'Calcular Prestamo'
+
+    // crear select con opcion de cuotas
+    const selectCuotas = document.createElement('select')
+    selectCuotas.setAttribute('id', 'cuotas')
+    
+    const parrafoCuotas = document.createElement('p')
+    parrafoCuotas.innerText = "Seleccione la cantidad de cuotas de su prestamo:"
+
+    // crear opciones de cuotas
+    cuotas.forEach(cuota =>{
+        const opcionCuota = document.createElement('option')
+        opcionCuota.innerText = `${cuota.plazo}`
+        selectCuotas.append(opcionCuota)
+    })
+
+    //append
+    divPrestamo.append(parrafoCuotas, selectCuotas, botonCalcular)
+}
