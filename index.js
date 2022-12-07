@@ -20,6 +20,7 @@ const cuotas = [
     },
 ]
 
+
 //se crea clase Banco
 class Banco {
     constructor(nombre){
@@ -39,12 +40,14 @@ bancos.push(new Banco ('Banco Republica'))
 
 // // verificar si hay un usuario en el storage
 const usuario = JSON.parse(localStorage.getItem('usuario'))
+
 if (usuario) {
     crearDivPrestamos(usuario)
     crearButtonSelectCalcular()
 }
 
 //Evento click del boton ingresar en la pagina principal
+//Uso del operador OR 
 botonIngresar.onclick = () => {
     if(nombreUsuario.value || apellidoUsuario.value) {
         const usuario = {
@@ -75,7 +78,6 @@ botonIngresar.onclick = () => {
             //Filtro los bancos con intereses mayores a 7%
 
             const interesAlto = bancos.filter(banco => banco.interes >= 7)
-            console.log(JSON.stringify(interesAlto))
             const bancosInteresAlto = document.createElement('p')
             bancosInteresAlto.innerText = `Los bancos con intereses mayores a un 7% son:
             ${JSON.stringify(interesAlto)}`
@@ -85,6 +87,15 @@ botonIngresar.onclick = () => {
 }
 
 function crearDivPrestamos(user){
+
+//Libreria sweet alert
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Tus datos han sido guardados con éxito',
+        showConfirmButton: false,
+        timer: 1900
+      })
 
     //eliminar divTitulo
     divTitulo.remove()
