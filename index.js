@@ -6,6 +6,7 @@ const divSaludo = document.getElementById('divSaludo')
 const divPrestamo = document.getElementById('divPrestamo')
 const divResultado = document.getElementById('divResultado')
 const divBancos = document.getElementById('bancos')
+const divCotizaciones = document.getElementById('cotizaciones')
 
 // arreglo de cuotas
 const cuotas = [
@@ -38,6 +39,7 @@ bancos.push(new Banco ('Scotiabank'))
 bancos.push(new Banco ('Banco Republica'))
 
 
+
 // // verificar si hay un usuario en el storage
 const usuario = JSON.parse(localStorage.getItem('usuario'))
 
@@ -45,6 +47,38 @@ if (usuario) {
     crearDivPrestamos(usuario)
     crearButtonSelectCalcular()
 }
+
+
+function promesa (){
+    return new Promise ((resolve,reject)=>{
+        setTimeout(() => {
+            if(nombreUsuario.value || apellidoUsuario.value != '') {
+                resolve('Has ingresado tus datos completos, ya puedes ingresar!')
+            } else {
+                reject ('Recuerda que para ingresar es necesario completar tus datos')
+            }
+        }, 8000)
+    })
+}
+
+promesa(nombreUsuario.value, apellidoUsuario.value)
+.then(response =>   
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: (response),
+        showConfirmButton: false,
+        timer: 2500
+    }))
+.catch(error =>   
+    Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: (error),
+        showConfirmButton: false,
+        timer: 2500
+    }))
+
 
 //Evento click del boton ingresar en la pagina principal
 //Uso del operador OR 
@@ -71,7 +105,7 @@ botonIngresar.onclick = () => {
                 const cuotaConInteres = cuotaInt/100 * banco.interes
                 const precioFinal =  cuotaConInteres + cuotaInt
                 const parrafo = document.createElement('p')
-                parrafo.innerText = `El banco ${banco.nombre} te ofrece un prestamo con intereses de ${banco.interes}% por lo que deberias abonar ${precioFinal}`
+                parrafo.innerText = `El banco ${banco.nombre} te ofrece un prestamo con intereses de ${banco.interes}% por lo que deberias abonar USD${precioFinal}`
                 divResultado.append(parrafo)
             })
 
@@ -102,7 +136,7 @@ function crearDivPrestamos(user){
 
     //agregar elemento al DOM
     const tituloSaludo = document.createElement('h2')
-    tituloSaludo.innerText = `Hola! Bienvenido ${user.nombre} ${user.apellido}, solicita el prestamo que mas te convenga:`
+    tituloSaludo.innerText = `Hola! Bienvenido ${user.nombre} ${user.apellido}, solicita el prestamo en USD que mas te convenga:`
     divSaludo.append(tituloSaludo)
 
     // crear input monto de prestamo solicitado
@@ -135,6 +169,29 @@ function crearButtonSelectCalcular(){
         selectCuotas.append(opcionCuota)
     })
 
-    //append
+//Fetch con las cotizaciones del dolar que se actualiza cada 60s
+const cargarCotizacion = () => {
+    fetch("https://criptoya.com/api/dolar")
+    .then(repsonse => repsonse.json())
+    .then(({solidario, ccl, mep, ccb, blue}) => {
+    divCotizaciones.innerHTML = `
+    <h2>Cotizacion del dolar</h2>
+        <p>Solidario:$ ${solidario}</p>
+        <p>CCL:$ ${ccl}</p>
+        <p>MEP:$ ${mep}</p>
+        <p>CCB:$ ${ccb}</p>
+        <p>Blue:$ ${blue}</p>
+    `
+})
+}
+
+cargarCotizacion()
+
+setInterval(() => {
+    cargarCotizacion()
+}, 60000);
+
+    
+//append
     divPrestamo.append(parrafoCuotas, selectCuotas, botonCalcular)
 }
